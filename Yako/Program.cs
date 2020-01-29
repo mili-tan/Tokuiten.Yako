@@ -9,6 +9,12 @@ namespace Yako
 {
     class Program
     {
+        //curl https://pixiv.net/
+        //curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed
+
+        //curl "http://www.example.com/?name=www.twitter.com
+        //curl: (56) Recv failure: Connection was reset
+
         static void Main()
         {
             try
