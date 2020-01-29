@@ -9,7 +9,7 @@ namespace Yako
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -21,6 +21,19 @@ namespace Yako
                 if (e.Status == WebExceptionStatus.ReceiveFailure || e.Status == WebExceptionStatus.RequestCanceled)
                 {
                     Console.WriteLine("RST");
+                }
+            }
+
+            try
+            {
+                new WebClient().DownloadString("https://pixiv.net/");
+                Console.WriteLine("OK");
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ReceiveFailure || e.Status == WebExceptionStatus.RequestCanceled)
+                {
+                    Console.WriteLine("SNI RST");
                 }
             }
 
