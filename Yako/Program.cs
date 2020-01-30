@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,30 +18,27 @@ namespace Yako
 
         static void Main()
         {
-            try
-            {
-                new WebClient().DownloadString("http://www.example.com/?name=www.twitter.com");
-                Console.WriteLine("OK");
-            }
-            catch (WebException e)
-            {
-                if (e.Status == WebExceptionStatus.ReceiveFailure || e.Status == WebExceptionStatus.RequestCanceled)
-                {
-                    Console.WriteLine("RST");
-                }
-            }
+            //try
+            //{
+            //    new WebClient().DownloadString("http://www.example.com/?name=www.twitter.com");
+            //    Console.WriteLine("OK");
+            //}
+            //catch (WebException e)
+            //{
+            //    if (e.Status == WebExceptionStatus.ReceiveFailure || e.Status == WebExceptionStatus.RequestCanceled)
+            //    {
+            //        Console.WriteLine("RST");
+            //    }
+            //}
 
             try
             {
-                new WebClient().DownloadString("https://pixiv.net/");
+                var o = new HttpClient().GetStringAsync("https://pixiv.net/").Result;
                 Console.WriteLine("OK");
             }
-            catch (WebException e)
+            catch (Exception e)
             {
-                if (e.Status == WebExceptionStatus.ReceiveFailure || e.Status == WebExceptionStatus.RequestCanceled)
-                {
-                    Console.WriteLine("SNI RST");
-                }
+                Console.WriteLine(e);
             }
 
             Console.ReadKey();
