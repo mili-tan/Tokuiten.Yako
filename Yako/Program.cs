@@ -19,9 +19,9 @@ namespace Yako
                 Curl.GlobalInit(CurlInitFlag.All);
                 using (var easy = new CurlEasy())
                 {
-                    easy.Url = "https://google.com";
-                    //easy.ConnectTimeout = 1;
-                    //easy.Timeout = 1;
+                    easy.Url = "http://www.example.com/?name=www.twitter.com";
+                    easy.ConnectTimeout = 5;
+                    easy.Timeout = 5;
                     easy.HeaderFunction = (buf, size, nmemb, data) => {
                         Console.Write(Encoding.UTF8.GetString(buf));
                         return size * nmemb;
