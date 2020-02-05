@@ -21,6 +21,8 @@ namespace Yako
                 {
                     easy.DnsUseGlobalCache = false;
                     easy.DnsCacheTimeout = 0;
+                    easy.Proxy = "127.0.0.1:7890";
+                    easy.CaInfo = "cacert.pem";
                     //easy.SetOpt(CurlOption.DnsLocalIp4, "1.1.1.1");
                     easy.Url = "https://pixiv.net/";
                     easy.ConnectTimeout = 5;
@@ -36,7 +38,8 @@ namespace Yako
                     easy.Filetime = true;
 
                     var c = easy.Perform();
-                    Console.WriteLine(c);
+                    Console.WriteLine("Perform:" + c + (int)c);
+                    Console.WriteLine("SslEngine: {0}", easy.SslEngine);
                     Console.WriteLine("Connect Time: {0}", easy.ConnectTime);
                     Console.WriteLine("Content Type: {0}", easy.ContentType);
                     Console.WriteLine("HTTP Connect Code: {0}", easy.HttpConnectCode);
