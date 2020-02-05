@@ -19,7 +19,10 @@ namespace Yako
                 Curl.GlobalInit(CurlInitFlag.All);
                 using (var easy = new CurlEasy())
                 {
-                    easy.Url = "http://www.example.com/?name=www.twitter.com";
+                    easy.DnsUseGlobalCache = false;
+                    easy.DnsCacheTimeout = 0;
+                    //easy.SetOpt(CurlOption.DnsLocalIp4, "1.1.1.1");
+                    easy.Url = "https://pixiv.net/";
                     easy.ConnectTimeout = 5;
                     easy.Timeout = 5;
                     easy.HeaderFunction = (buf, size, nmemb, data) => {
@@ -31,77 +34,20 @@ namespace Yako
                         return size * nmemb;
                     };
                     easy.Filetime = true;
+
                     var c = easy.Perform();
                     Console.WriteLine(c);
-
-                    var d = easy.ConnectTime;
-                    Console.WriteLine("Connect Time: {0}", d);
-
-                    d = easy.ContentLengthDownload;
-                    Console.WriteLine("Content Length (Download): {0}", d);
-
-                    d = easy.ContentLengthUpload;
-                    Console.WriteLine("Content Length (Upload): {0}", d);
-
-                    var s = easy.ContentType;
-                    Console.WriteLine("Content Type: {0}", s);
-
-                    var n = easy.HeaderSize;
-                    Console.WriteLine("Header Size: {0}", n);
-
-                    n = easy.HttpAuthAvail;
-                    Console.WriteLine("Authentication Bitmask: {0}", n);
-
-                    n = easy.HttpConnectCode;
-                    Console.WriteLine("HTTP Connect Code: {0}", n);
-
-                    d = easy.NameLookupTime;
-                    Console.WriteLine("Name Lookup Time: {0}", d);
-
-                    n = easy.OsErrno;
-                    Console.WriteLine("OS Errno: {0}", n);
-
-                    d = easy.PreTransferTime;
-                    Console.WriteLine("Pretransfer time: {0}", d);
-
-                    var o = easy.Private;
-                    Console.WriteLine("Private Data: {0}", o);
-
-                    n = easy.ProxyAuthAvail;
-                    Console.WriteLine("Proxy Authentication Schemes: {0}", n);
-
-                    n = easy.RedirectCount;
-                    Console.WriteLine("Redirect count: {0}", n);
-
-                    d = easy.RedirectTime;
-                    Console.WriteLine("Redirect time: {0}", d);
-
-                    n = easy.RequestSize;
-                    Console.WriteLine("Request size: {0}", n);
-
-                    n = easy.ResponseCode;
-                    Console.WriteLine("Response code: {0}", n);
-
-                    d = easy.SizeDownload;
-                    Console.WriteLine("Download size: {0}", d);
-
-                    d = easy.SizeUpload;
-                    Console.WriteLine("Upload size: {0}", d);
-
-                    d = easy.SpeedDownload;
-                    Console.WriteLine("Download speed: {0}", d);
-
-                    d = easy.SpeedUpload;
-                    Console.WriteLine("Upload speed: {0}", d);
-
-                    n = easy.SslVerifyResult;
-                    Console.WriteLine("Ssl verification result: {0}", n);
-
-                    d = easy.StartTransferTime;
-                    Console.WriteLine("Start transfer time: {0}", d);
-
-                    d = easy.TotalTime;
-                    Console.WriteLine("Total time: {0}", d);
+                    Console.WriteLine("Connect Time: {0}", easy.ConnectTime);
+                    Console.WriteLine("Content Type: {0}", easy.ContentType);
+                    Console.WriteLine("HTTP Connect Code: {0}", easy.HttpConnectCode);
+                    Console.WriteLine("Name Lookup Time: {0}", easy.NameLookupTime);
+                    Console.WriteLine("OS Errno: {0}", easy.OsErrno);
+                    Console.WriteLine("Pretransfer time: {0}", easy.PreTransferTime);
+                    Console.WriteLine("Redirect time: {0}", easy.RedirectTime);
+                    Console.WriteLine("Response code: {0}", easy.ResponseCode);
+                    Console.WriteLine("Ssl verification result: {0}", easy.SslVerifyResult);
+                    Console.WriteLine("Start transfer time: {0}", easy.StartTransferTime);
+                    Console.WriteLine("Total time: {0}", easy.TotalTime);
                 }
             }
             catch (Exception e)
