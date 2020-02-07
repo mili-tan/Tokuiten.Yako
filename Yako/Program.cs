@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Text;
+using ARSoft.Tools.Net;
+using ARSoft.Tools.Net.Dns;
 using CurlSharp;
 
 namespace Yako
@@ -16,12 +19,16 @@ namespace Yako
         {
             try
             {
+                var aResolve = new DnsClient(IPAddress.Parse("2.2.2.2"), 5000).Resolve(DomainName.Parse("pixiv.net"));
+                aResolve.AnswerRecords.ForEach(Console.WriteLine);
+                var bResolve = new DnsClient(IPAddress.Parse("2.2.2.2"), 5000).Resolve(DomainName.Parse("baidu.com"));
+                bResolve.AnswerRecords.ForEach(Console.WriteLine);
                 Curl.GlobalInit(CurlInitFlag.All);
                 using (var easy = new CurlEasy())
                 {
                     easy.DnsUseGlobalCache = false;
                     easy.DnsCacheTimeout = 0;
-                    easy.Proxy = "127.0.0.1:7890";
+                    //easy.Proxy = "127.0.0.1:7890";
                     easy.CaInfo = "cacert.pem";
                     //easy.SetOpt(CurlOption.DnsLocalIp4, "1.1.1.1");
                     easy.Url = "https://pixiv.net/";
